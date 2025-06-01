@@ -1,17 +1,23 @@
 package com.example.UberReviewService.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.util.Date;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "reviews")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "bookingreview")
+public class Review extends BaseModel {
 
     @Column(nullable = false)
     private String review;
@@ -19,15 +25,6 @@ public class Review {
     @Column(nullable = false)
     private int rating;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    Date updatedAt;
     @Column(nullable = false)
     private int userId;
     @Column(nullable = false)
